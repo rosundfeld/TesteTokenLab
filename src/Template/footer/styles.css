@@ -1,0 +1,14 @@
+.footerContainer {
+    position: fixed;
+    bottom: 0;
+
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+    padding: 1rem;
+}
+
+.footerContainer .developerName {
+    color: #589dd4;
+}

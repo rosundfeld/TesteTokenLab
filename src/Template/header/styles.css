@@ -1,0 +1,42 @@
+.headerContainer {
+    width: 100%;
+    background-color: #FFF;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-size: 2.6rem;
+    line-height: normal;
+}
+
+#icon {
+    font-size: 4rem;
+    color: var(--color-primary);
+}
+
+#text {
+    font-size: 2.6rem;
+}
+
+#logo {
+    margin-right: 4rem;
+    max-width: 150px;
+}
+
+.title-group {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.title-group span{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+@media (max-width: 1000px) {
+    .title-group {
+       margin-left: 3rem;
+    }
+}
