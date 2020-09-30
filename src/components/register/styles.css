@@ -1,0 +1,47 @@
+.registerContainer {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.registerTitle {
+    font-size: 3rem;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.formContent input {
+    width: 30vh;
+    font-size: 1.5rem;
+}
+
+.formContent label {
+    font-size: 1.5rem;
+}
+
+.formContent > div {
+    margin: 1vh;
+}
+
+.buttonsContainerRegister {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dividerSolid {
+    margin-top: 3rem;
+    width: 100%;
+    border-top: solid 1px lightblue;
+}

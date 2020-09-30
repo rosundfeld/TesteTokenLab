@@ -16,7 +16,7 @@ function Header() {
                 <span>
                     <img src={require('../../assets/images/TokenLab_Logo.png')} id="logo" alt="Logo" />
                 </span>
-                <span class="title-group">
+                <span className="title-group">
                          <Home id="icon"/> 
                         <span id="text" >Início</span>
                 </span>

@@ -1,0 +1,57 @@
+.loginContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.loginForm {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 50vh;
+}
+
+.logoContainer {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.logoContainer img {
+    width: 9vh;
+}
+
+.formActions input {
+    font-size: 1.5rem;
+}
+
+.formActions label {
+    font-size: 1.5rem;
+}
+
+.formActions {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.forgot {
+    margin: 2rem;
+    text-decoration: underline;
+}
+
+.buttonsContainerLogin {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonsContainerLogin button{
+   margin: 1rem 0 0 0;
+}
+
+#registerButton {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
