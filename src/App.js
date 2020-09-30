@@ -21,23 +21,18 @@ function App() {
   //variable to check if firebase is initialized
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
-  const [isLogged, setIsLogged] = useState(false);
-
   //check if firebase is initilized before enter the website
-  useEffect(() => {
-    firebase.isInitialized().then(val => {
-      setFirebaseInitialized(val);
+	useEffect(() => {
+		firebase.isInitialized().then(val => {
+			setFirebaseInitialized(val)
     })
-  })
-
-  if( firebase.getCurrentUsername() ) {
-    setIsLogged(true);
-  }
+  }, []);
 
 
   return firebaseInitialized !== false ? (
     <div className="App">
-      { isLogged ? 
+      {console.log(firebase.verifyLogin())}
+      { firebase.verifyLogin() ? 
         <div className="App">
           <Header></Header>
           <Nav></Nav>

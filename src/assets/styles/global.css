@@ -4,6 +4,7 @@
     --color-primary-dark: #006bc2;
     --color-primary: #589dd4;
     --color-primary-light: #81b0d6;
+    --color-success: #4caf50;
 }
 
 * {
@@ -47,6 +48,14 @@ textarea {
     background-color: #fff !important;
     font-size: 1.5rem !important;
     border: solid 1px lightblue !important;
+}
+
+.successAlert {
+    font-size: 1.5rem;
+    background-color: var(--color-success) !important;
+    padding: 1rem 5rem;
+    font-weight: bold;
+    color: #FFF !important;
 }
 
 @media (min-width: 700px) {

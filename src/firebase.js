@@ -42,14 +42,22 @@ const config = {
 
     //function to check if firebase is initialized
     isInitialized() {
-        return new Promise(resolve => {
-            this.auth.onAuthStateChanged(resolve)
-        })
-    }
+		return new Promise(resolve => {
+			this.auth.onAuthStateChanged(resolve)
+		})
+	}
 
     //Function to get the logged username
     getCurrentUsername() {
         return this.auth.currentUser && this.auth.currentUser.displayName
+    }
+
+    verifyLogin() {
+        if ( this.auth.currentUser ){
+            return true
+        } else {
+            return false
+        }
     }
 }
 

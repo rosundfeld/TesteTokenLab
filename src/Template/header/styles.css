@@ -2,11 +2,12 @@
     width: 100%;
     background-color: #FFF;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    display: flex;
-    align-items: center;
     padding: 1rem;
     font-size: 2.6rem;
     line-height: normal;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 
 #icon {
@@ -33,6 +34,22 @@
     align-items: center;
     justify-content: center;
     display: flex;
+}
+
+.userName {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#userMenu ul li {
+    font-size: 1.5rem;
+}
+
+.userSettings {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
 }
 
 @media (max-width: 1000px) {

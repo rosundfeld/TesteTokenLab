@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //importing firease
 import firebase from '../../firebase'
 
 //Material Ui
-import { FormControl, Input, InputLabel, Paper, Button } from '@material-ui/core';
+import { FormControl, Input, InputLabel, Paper, Button, CircularProgress, Snackbar } from '@material-ui/core';
 
 //Material Ui Icons
 import {  } from '@material-ui/icons';
@@ -24,6 +24,12 @@ function LoginComponent( props ) {
     let [ loginEmail, setLoginEmail ] = useState("");
     let [ loginPwd, setLoginPwd ] = useState("");
 
+    //wallpaper random
+    const [wallpaperNumber, setWallpaperNumber] = useState(null);
+
+    //confirm Register to trigger snackbar
+    let [confirmRegister, setConfirmRegister] = useState(false);
+
     //login Function
     async function login() {
         try {
@@ -33,6 +39,11 @@ function LoginComponent( props ) {
             console.log(error.message)
         }
     }
+
+    //pick a random wallpaper
+    useEffect(() => {
+        setWallpaperNumber(Math.ceil(Math.random() * 5));
+    }, [wallpaperNumber])
 
     //Toggle open register function
     function handleOpenRegister() {
@@ -46,35 +57,62 @@ function LoginComponent( props ) {
 
     return (
         <div id="login">
-           <div className="loginContainer">
-                <Paper className="loginForm" elevation={3}>
-                        <div className="logoContainer">
-                            <img src={require('../../assets/images/logoNoText.jpg')} alt="logo TokenLabs"/>
-                        </div>
-                    <div className="formActions">
-                            <FormControl>
-                                <InputLabel htmlFor="email">Email</InputLabel>
-                                <Input value={loginEmail} onChange={ e => setLoginEmail(e.target.value)} autoComplete="off" id="email" aria-describedby="digite seu E-mail" />
-                            </FormControl>
-                            <FormControl>
-                                <InputLabel htmlFor="password">Senha</InputLabel>
-                                <Input value={loginPwd} onChange={ e => setLoginPwd(e.target.value)} autoComplete="off" type="password" id="password" aria-describedby="digite sua senha" />
-                            </FormControl>
-                            <div className="buttonsContainerLogin">
-                                <Button onClick={() => login()} className="defaultButton" >
-                                    Logar
-                                </Button>
-                                <Button onClick={() => handleOpenRegister()} id="registerButton" >
-                                    Registrar
-                                </Button>
+            <div className="loginPage">
+                <div className="loginContainer">
+                        <Paper className="loginForm" elevation={6}>
+                                <div className="logoContainer">
+                                    <img src={require('../../assets/images/logoNoText.jpg')} alt="logo TokenLabs"/>
+                                </div>
+                            <div className="formActions">
+                                    <FormControl>
+                                        <InputLabel htmlFor="email">Email</InputLabel>
+                                        <Input required value={loginEmail} onChange={ e => setLoginEmail(e.target.value)} autoComplete="off" id="email" aria-describedby="digite seu E-mail" />
+                                    </FormControl>
+                                    <FormControl>
+                                        <InputLabel htmlFor="password">Senha</InputLabel>
+                                        <Input required value={loginPwd} onChange={ e => setLoginPwd(e.target.value)} autoComplete="off" type="password" id="password" aria-describedby="digite sua senha" />
+                                    </FormControl>
+                                    <div className="buttonsContainerLogin">
+                                        <Button type="submit" onClick={() => login()} className="defaultButton" >
+                                            Logar
+                                        </Button>
+                                        <Button onClick={() => handleOpenRegister()} id="registerButton" >
+                                            Registrar
+                                        </Button>
+                                    </div>
                             </div>
+                                <span className="forgot"> Esqueci minha senha </span>
+                                {firebase.getCurrentUsername()}
+                        </Paper>
+                </div>
+                { wallpaperNumber !== null ?
+                    <div className="wallpaperContainer">
+                        <img className="wallpaperImg" src={require('../../assets/images/wallpapers/wallpaper' + wallpaperNumber + '.jpg')} alt="Plano de fundo do login" ></img>
+                    </div> 
+                    :
+                    <div id="loader">
+                        <CircularProgress />
                     </div>
-                        <span className="forgot"> Esqueci minha senha </span>
-                </Paper>
-           </div>
+                }
+            </div>
+
+            {confirmRegister && 
+                  <Snackbar
+                  className="snackBarSuccess"
+                  anchorOrigin={ { vertical: 'bottom', horizontal: 'center' } }
+                  open={confirmRegister}
+                  onClose={() => setConfirmRegister(false)}
+                  message="Usuário registrado!"
+                  autoHideDuration={3000}
+                >
+                    <Paper elevation={5} className="successAlert">
+                        Usuário Registrado!
+                    </Paper>
+                </Snackbar>
+            }
 
            { openRegister && 
-                <RegisterComponent openRegister={openRegister} handleCloseRegister={() => handleCloseRegister()} />
+                <RegisterComponent setConfirmRegister={setConfirmRegister} openRegister={openRegister} handleCloseRegister={() => handleCloseRegister()} />
            }
 
         </div>

@@ -4,6 +4,23 @@
     justify-content: center;
     flex-direction: column;
     height: 100vh;
+    width: 40%;
+    transition: width 2s;
+}
+
+.wallpaperContainer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.wallpaperImg {
+    max-height: 1080px;
+}
+
+.loginPage {
+    display: flex;
+    position: fixed;
 }
 
 .loginForm {

@@ -15,7 +15,7 @@ import firebase from '../../firebase';
 //Css
 import './styles.css';
 
-function RegisterComponent({openRegister, handleCloseRegister, props}) {
+function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegister}) {
 
     //Register variables
     let [ registerEmail, setRegisterEmail ] = useState("");
@@ -23,13 +23,15 @@ function RegisterComponent({openRegister, handleCloseRegister, props}) {
     let [ registerPwd, setRegisterPwd ] = useState("");
     let [ confirmPwd, setConfirmPwd ] = useState("");
 
+
     //Register function
     async function registerUser() {
         try {
-            await firebase.register(registerUsername, registerEmail, registerPwd)
+            await firebase.register(registerUsername, registerEmail, registerPwd);
+            setConfirmRegister(true);
             handleCloseRegister();
         } catch(error) {
-            console.log(error.message)
+            console.log(error)
         }
     }
 
@@ -38,6 +40,7 @@ function RegisterComponent({openRegister, handleCloseRegister, props}) {
             <Dialog
                 className="dialogAnimation"
                 open={openRegister}
+                maxWidth={'lg'}
                 keepMounted
                 onClose={() => handleCloseRegister()}
                 aria-labelledby="Registrar usuário"
@@ -53,31 +56,31 @@ function RegisterComponent({openRegister, handleCloseRegister, props}) {
 
                         <FormControl>
                             <InputLabel htmlFor="email">Email</InputLabel>
-                            <Input value={registerEmail} onChange={ e => setRegisterEmail(e.target.value)} autoComplete="off"  id="email" aria-describedby="digite seu E-mail" />
+                            <Input required value={registerEmail} onChange={ e => setRegisterEmail(e.target.value)} autoComplete="off"  id="email" aria-describedby="digite seu E-mail" />
                         </FormControl>
 
                         <FormControl>
                             <InputLabel htmlFor="username">Nome de Usuário</InputLabel>
-                            <Input value={registerUsername} onChange={ e => setRegisterUsername(e.target.value)} autoComplete="off" type="text" id="username" aria-describedby="digite seu nome de usuário" />
+                            <Input required value={registerUsername} onChange={ e => setRegisterUsername(e.target.value)} autoComplete="off" type="text" id="username" aria-describedby="digite seu nome de usuário" />
                         </FormControl>
 
                         {/* Divider */}
-                        <hr class="dividerSolid" />
+                        <hr className="dividerSolid" />
 
                         <FormControl>
                             <InputLabel htmlFor="userPwd">Senha</InputLabel>
-                            <Input value={registerPwd} onChange={ e => setRegisterPwd(e.target.value)} autoComplete="off" type="password" id="userPwd" aria-describedby="digite sua senha" />
+                            <Input required value={registerPwd} onChange={ e => setRegisterPwd(e.target.value)} autoComplete="off" type="password" id="userPwd" aria-describedby="digite sua senha" />
                         </FormControl>
 
                         <FormControl>
                             <InputLabel htmlFor="pwdConfim">Repetir senha</InputLabel>
-                            <Input value={confirmPwd} onChange={ e => setConfirmPwd(e.target.value)} autoComplete="off" type="password" id="pwdConfim" aria-describedby="confirme sua senha" />
+                            <Input required value={confirmPwd} onChange={ e => setConfirmPwd(e.target.value)} autoComplete="off" type="password" id="pwdConfim" aria-describedby="confirme sua senha" />
                         </FormControl>
 
                     </DialogContent>
                     
                     <DialogActions className="buttonsContainerRegister">
-                        <Button onClick={() => registerUser()} className="defaultButton">
+                        <Button type="submit" onClick={() => registerUser()} className="defaultButton">
                             Registrar
                         </Button>
                         <Button onClick={() => handleCloseRegister()} className="cancelButton">

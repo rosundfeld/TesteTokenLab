@@ -1,16 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+//importing router
+import {
+    Redirect
+  } from "react-router-dom";
 
 //Material Ui
-import { Paper } from '@material-ui/core';
+import { Paper, Menu, MenuItem } from '@material-ui/core';
 
 //Material Ui Icons
-import { Home  } from '@material-ui/icons';
+import { Home, ArrowDropDown  } from '@material-ui/icons';
+
+//firebase
+import firebase from '../../firebase';
 
 //Css
 import './styles.css';
 
-function Header() {
-    return (
+function Header( props ) {
+
+    //userMenu toggle variable
+    const [anchorEl, setAnchorEl] = useState(null);
+    
+    //userMenu open Function
+    function handleClick(e) {
+        setAnchorEl(e.target);
+    };
+
+    //userMenu close Function
+    function handleClose() {
+        setAnchorEl(null);
+    };
+
+    //logout function
+    async function logout() {
+        await firebase.logout();
+        window.location.reload(false);
+      }
+
+      
+      
+      if( !firebase.getCurrentUsername) {
+          return(
+            <Redirect to='/login'/>
+          )
+      }
+      return (
         <div id="header">
             <Paper className="headerContainer" elevation={2}>
                 <span>
@@ -20,6 +55,21 @@ function Header() {
                          <Home id="icon"/> 
                         <span id="text" >Início</span>
                 </span>
+                <div className="userSettings">
+                    <span onClick={(e) => handleClick(e)} className="userName">
+                        {firebase.getCurrentUsername()}<ArrowDropDown />
+                    </span>
+                    <Menu
+                    id="userMenu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                    >
+                        <MenuItem onClick={() => handleClose()}>Profile</MenuItem>
+                        <MenuItem onClick={() =>  logout()}>Logout</MenuItem>
+                    </Menu>
+                </div>
             </Paper>
         </div>
     )
