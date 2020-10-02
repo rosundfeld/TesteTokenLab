@@ -31,7 +31,6 @@ function App() {
 
   return firebaseInitialized !== false ? (
     <div className="App">
-      {console.log(firebase.verifyLogin())}
       { firebase.verifyLogin() ? 
         <div className="App">
           <Header></Header>

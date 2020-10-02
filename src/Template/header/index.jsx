@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-
-//importing router
-import {
-    Redirect
-  } from "react-router-dom";
+  
 
 //Material Ui
 import { Paper, Menu, MenuItem } from '@material-ui/core';
 
 //Material Ui Icons
-import { Home, ArrowDropDown  } from '@material-ui/icons';
+import { Home, ArrowDropDown } from '@material-ui/icons';
 
 //firebase
 import firebase from '../../firebase';
@@ -38,15 +34,13 @@ function Header( props ) {
         window.location.reload(false);
       }
 
-      
-      
-      if( !firebase.getCurrentUsername) {
-          return(
-            <Redirect to='/login'/>
-          )
-      }
+    function redirectToProfile(){
+        window.location.href = 'http://localhost:3000/perfil';
+        handleClose();
+    }
+
       return (
-        <div id="header">
+        <div id="header">  
             <Paper className="headerContainer" elevation={2}>
                 <span>
                     <img src={require('../../assets/images/TokenLab_Logo.png')} id="logo" alt="Logo" />
@@ -66,7 +60,7 @@ function Header( props ) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                     >
-                        <MenuItem onClick={() => handleClose()}>Profile</MenuItem>
+                            <MenuItem onClick={() => redirectToProfile()}> Profile</MenuItem>
                         <MenuItem onClick={() =>  logout()}>Logout</MenuItem>
                     </Menu>
                 </div>

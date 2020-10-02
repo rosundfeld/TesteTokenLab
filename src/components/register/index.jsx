@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //Material Ui
 import { FormControl, Input, InputLabel, Paper, Button } from '@material-ui/core';
 
 //Dialog imports
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Alert } from '@material-ui/core';
+
+//Material UI input complements
+import { InputAdornment, IconButton } from '@material-ui/core';
 
 //Material Ui Icons
-import {  } from '@material-ui/icons';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 //importing firebase
 import firebase from '../../firebase';
@@ -23,15 +26,37 @@ function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegiste
     let [ registerPwd, setRegisterPwd ] = useState("");
     let [ confirmPwd, setConfirmPwd ] = useState("");
 
+    //show password variable
+    let [showPassword, setShowPassword ] = useState(false);
+    let [showPasswordConfirm, setShowPasswordConfirm ] = useState(false);
+
+    //toggle function to show password
+    function handleShowPassword() {
+        setShowPassword(showPassword => !showPassword);
+    }
+
+    function handleShowPasswordConfirm() {
+        setShowPasswordConfirm(showPasswordConfirm => !showPasswordConfirm);
+    }
+
+    function checkPwdMatch() {
+        return registerPwd === confirmPwd ? true : false
+    };
+
+    useEffect(() => {
+        //check password match
+        checkPwdMatch();
+      }, [registerPwd, confirmPwd, checkPwdMatch]);
 
     //Register function
     async function registerUser() {
-        try {
-            await firebase.register(registerUsername, registerEmail, registerPwd);
-            setConfirmRegister(true);
-            handleCloseRegister();
-        } catch(error) {
-            console.log(error)
+        if(checkPwdMatch())
+            try {
+                await firebase.register(registerUsername, registerEmail, registerPwd);
+                setConfirmRegister(true);
+                handleCloseRegister();
+            } catch(error) {
+                console.log(error)
         }
     }
 
@@ -69,13 +94,53 @@ function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegiste
 
                         <FormControl>
                             <InputLabel htmlFor="userPwd">Senha</InputLabel>
-                            <Input required value={registerPwd} onChange={ e => setRegisterPwd(e.target.value)} autoComplete="off" type="password" id="userPwd" aria-describedby="digite sua senha" />
+                            <Input 
+                                required 
+                                value={registerPwd} 
+                                onChange={ e => setRegisterPwd(e.target.value)} 
+                                autoComplete="off" 
+                                type={showPassword ? 'text' : 'password'}
+                                id="userPwd" 
+                                aria-describedby="digite sua senha" 
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        aria-label="Aperte para mostrar a senha"
+                                        onClick={ () => handleShowPassword()}
+                                      >
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                      </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
                         </FormControl>
 
                         <FormControl>
                             <InputLabel htmlFor="pwdConfim">Repetir senha</InputLabel>
-                            <Input required value={confirmPwd} onChange={ e => setConfirmPwd(e.target.value)} autoComplete="off" type="password" id="pwdConfim" aria-describedby="confirme sua senha" />
+                            <Input 
+                            required 
+                            value={confirmPwd} 
+                            onChange={ e => setConfirmPwd(e.target.value)} 
+                            autoComplete="off" 
+                            type={showPasswordConfirm ? 'text' : 'password'}
+                            id="pwdConfim" 
+                            aria-describedby="confirme sua senha" 
+                            endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="Aperte para mostrar a senha"
+                                    onClick={ () => handleShowPasswordConfirm()}
+                                  >
+                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                            }
+                        />
                         </FormControl>
+                        { ! checkPwdMatch() ? 
+                           <span className="errorMessage">Confirmação de senha diferente</span>
+                           : null
+                        }
 
                     </DialogContent>
                     

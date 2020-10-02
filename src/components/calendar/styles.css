@@ -1,0 +1,53 @@
+
+#calendar label{
+    font-size: 2rem;
+}
+
+.formAddEvent {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.calendarField input{
+    font-size: 1.5rem;
+}
+
+.calendarFieldDescription{
+    width: 25%;
+}
+
+.calendarFieldDescription input {
+    font-size: 1.5rem;
+}
+
+#addButton {
+    background-color: var(--color);
+    font-size: 1.5rem;
+}
+
+.addButton {
+    font-size: 1.5rem;
+    background-color: var(--color-success) !important;
+    padding: 1rem 5rem;
+    font-weight: bold;
+    color: #FFF !important;
+}
+
+.cancelAction {
+    padding: 1rem 5rem;
+    font-weight: 400 !important;
+    color: #FFF !important;
+    background-color: var(--color-fail) !important;
+    font-size: 1.5rem !important;
+    border: solid 1px white !important;
+}
+
+.buttonContainer button{
+    margin: 0 1rem;
+}
+
+.actions {
+    margin-bottom: 1.5rem;
+}

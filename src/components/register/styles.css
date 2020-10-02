@@ -45,3 +45,7 @@
     width: 100%;
     border-top: solid 1px lightblue;
 }
+
+.errorMessage {
+    color: red;
+}

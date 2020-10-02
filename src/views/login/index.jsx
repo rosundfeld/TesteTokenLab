@@ -6,8 +6,11 @@ import firebase from '../../firebase'
 //Material Ui
 import { FormControl, Input, InputLabel, Paper, Button, CircularProgress, Snackbar } from '@material-ui/core';
 
+//Material Ui input complements
+import { InputAdornment, IconButton } from '@material-ui/core';
+
 //Material Ui Icons
-import {  } from '@material-ui/icons';
+import { Visibility, VisibilityOff  } from '@material-ui/icons';
 
 //Css
 import './styles.css';
@@ -30,6 +33,9 @@ function LoginComponent( props ) {
     //confirm Register to trigger snackbar
     let [confirmRegister, setConfirmRegister] = useState(false);
 
+    //show password variable
+    let [ showPassword, setShowPassword ] = useState(false);
+
     //login Function
     async function login() {
         try {
@@ -44,6 +50,11 @@ function LoginComponent( props ) {
     useEffect(() => {
         setWallpaperNumber(Math.ceil(Math.random() * 5));
     }, [wallpaperNumber])
+
+    // Function to toggle the show password
+    function handleShowPassword() {
+        setShowPassword( showPassword => ! showPassword);
+    }
 
     //Toggle open register function
     function handleOpenRegister() {
@@ -66,11 +77,35 @@ function LoginComponent( props ) {
                             <div className="formActions">
                                     <FormControl>
                                         <InputLabel htmlFor="email">Email</InputLabel>
-                                        <Input required value={loginEmail} onChange={ e => setLoginEmail(e.target.value)} autoComplete="off" id="email" aria-describedby="digite seu E-mail" />
+                                        <Input 
+                                            required 
+                                            value={loginEmail} 
+                                            onChange={ e => setLoginEmail(e.target.value)} 
+                                            autoComplete="off" 
+                                            id="email" 
+                                            aria-describedby="digite seu E-mail" />
                                     </FormControl>
                                     <FormControl>
                                         <InputLabel htmlFor="password">Senha</InputLabel>
-                                        <Input required value={loginPwd} onChange={ e => setLoginPwd(e.target.value)} autoComplete="off" type="password" id="password" aria-describedby="digite sua senha" />
+                                        <Input 
+                                            required 
+                                            value={loginPwd} 
+                                            onChange={ e => setLoginPwd(e.target.value)} 
+                                            autoComplete="off" 
+                                            type={showPassword ? 'text' : 'password'}
+                                            id="password" 
+                                            aria-describedby="digite sua senha" 
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                  <IconButton
+                                                    aria-label="Aperte para mostrar a senha"
+                                                    onClick={ () => handleShowPassword()}
+                                                  >
+                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                  </IconButton>
+                                                </InputAdornment>
+                                            }
+                                        />
                                     </FormControl>
                                     <div className="buttonsContainerLogin">
                                         <Button type="submit" onClick={() => login()} className="defaultButton" >
