@@ -4,9 +4,6 @@ import React, { useState } from 'react';
 //Material Ui
 import { Button, CircularProgress, Paper, TextField, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
 
-//Material Ui Icons
-import { TrainOutlined } from '@material-ui/icons';
-
 //firebase
 import firebase from '../../firebase';
 

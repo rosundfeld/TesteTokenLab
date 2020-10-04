@@ -117,7 +117,6 @@ function LoginComponent( props ) {
                                     </div>
                             </div>
                                 <span className="forgot"> Esqueci minha senha </span>
-                                {firebase.getCurrentUsername()}
                         </Paper>
                 </div>
                 { wallpaperNumber !== null ?

@@ -46,7 +46,10 @@ function EventHolder({ eventData, getDataFromFirebase }) {
         setOpenEdit(openEdit => ! openEdit);
     }
     
-    const today = new Date().toISOString().slice(0, 10)
+    //getting local date with the right timezone
+    let data = new Date();
+    let data2 = new Date(data.valueOf() - data.getTimezoneOffset() * 60000);
+    const today = data2.toISOString()
     const todayTimestamp = Math.round(new Date(today).getTime()/1000)
 
 
@@ -87,10 +90,6 @@ function EventHolder({ eventData, getDataFromFirebase }) {
                         </Tooltip>
                    </div>
                    <div className="EventCommingContainer">
-                       {console.log(todayTimestamp + " > " + eventData.beginDateTimestamp)}
-                       {console.log(todayTimestamp > eventData.beginDateTimestamp)}
-                       {console.log(todayTimestamp + " < " + eventData.endDateTimestamp)}
-                       {console.log(todayTimestamp <  eventData.endDateTimestamp)}
                        {todayTimestamp > eventData.beginDateTimestamp && todayTimestamp < eventData.endDateTimestamp ? <PriorityHigh /> : null} 
                    </div>
                 </div>

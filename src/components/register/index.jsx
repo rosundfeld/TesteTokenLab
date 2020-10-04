@@ -30,6 +30,9 @@ function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegiste
     let [showPassword, setShowPassword ] = useState(false);
     let [showPasswordConfirm, setShowPasswordConfirm ] = useState(false);
 
+     //show password variable
+     let [showErrorMessage, setShowErrorMessage ] = useState(false);
+
     //toggle function to show password
     function handleShowPassword() {
         setShowPassword(showPassword => !showPassword);
@@ -39,24 +42,25 @@ function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegiste
         setShowPasswordConfirm(showPasswordConfirm => !showPasswordConfirm);
     }
 
-    function checkPwdMatch() {
-        return registerPwd === confirmPwd ? true : false
-    };
-
+    
     useEffect(() => {
+        function checkPwdMatch() {
+            return registerPwd === confirmPwd ? setShowErrorMessage(true) : setShowErrorMessage(false)
+        };
         //check password match
         checkPwdMatch();
-      }, [registerPwd, confirmPwd, checkPwdMatch]);
+      }, [registerPwd, confirmPwd]);
 
     //Register function
     async function registerUser() {
-        if(checkPwdMatch())
+        if(showErrorMessage){
             try {
                 await firebase.register(registerUsername, registerEmail, registerPwd);
                 setConfirmRegister(true);
                 handleCloseRegister();
             } catch(error) {
                 console.log(error)
+            }
         }
     }
 
@@ -137,7 +141,7 @@ function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegiste
                             }
                         />
                         </FormControl>
-                        { ! checkPwdMatch() ? 
+                        { ! showErrorMessage ? 
                            <span className="errorMessage">Confirmação de senha diferente</span>
                            : null
                         }
