@@ -50,8 +50,11 @@ function EventHolder({ eventData, getDataFromFirebase }) {
     let data = new Date();
     let data2 = new Date(data.valueOf() - data.getTimezoneOffset() * 60000);
     const today = data2.toISOString()
+    const todayDate = data2.toISOString().slice(0, 10)
+    const todayString = todayDate.split("-")
+    
+    const newTodayString = todayString[2] + "/" + todayString[1] + "/" + todayString[0]
     const todayTimestamp = Math.round(new Date(today).getTime()/1000)
-
 
       return (
         <div id="eventHolder">  
@@ -90,7 +93,7 @@ function EventHolder({ eventData, getDataFromFirebase }) {
                         </Tooltip>
                    </div>
                    <div className="EventCommingContainer">
-                       {todayTimestamp > eventData.beginDateTimestamp && todayTimestamp < eventData.endDateTimestamp ? <PriorityHigh /> : null} 
+                       {  newTodayString === eventData.beginDate && todayTimestamp < eventData.endDateTimestamp  ? <PriorityHigh /> : null} 
                    </div>
                 </div>
             </Paper>
