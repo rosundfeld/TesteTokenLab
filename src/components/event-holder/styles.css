@@ -6,6 +6,36 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin: 1rem;
+}
+
+.eventPass {
+    padding: 1.5rem;
+    min-height: 20vh;
+    max-height: 20vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 1rem;
+    background-color: lightgray !important;
+}
+
+.actionContainer {
+    height: 16vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.EventCommingContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.EventCommingContainer svg{
+   font-size: 4rem;
+   color: var(--color-fail)
 }
 
 .titleAndDescriptionContainer {
@@ -56,4 +86,8 @@
 
 .buttonTooltip #delete {
     color: var(--color-fail);
+}
+
+.confirmTitle {
+    font-size: 1.5rem;
 }

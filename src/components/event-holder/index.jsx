@@ -2,65 +2,117 @@ import React, { useState } from 'react';
   
 
 //Material Ui
-import { Tooltip, Paper, Typography, Chip, IconButton  } from '@material-ui/core';
+import { Tooltip, Paper, Typography, Chip, IconButton, Dialog, DialogTitle, DialogActions, Button  } from '@material-ui/core';
 
 //Material Ui Icons
-import { AlarmOn, AlarmOff, Delete, Create } from '@material-ui/icons';
+import { AlarmOn, AlarmOff, Delete, Create, PriorityHigh } from '@material-ui/icons';
 
 //firebase
 import firebase from '../../firebase';
 
+//Components
+import EditEvent from '../edit-event'
+
+//Import to use ternary operator inside a react className
+import classnames from 'classnames';
+
 //Css
 import './styles.css';
 
-function EventHolder() {
 
-    //title and description variables
-    // const [eventTitle, setEventTitle] = useState("");
-    // const [eventDescription, setEventDescription] = useState("");
+function EventHolder({ eventData, getDataFromFirebase }) {
 
-    //Date variable
-    // const [datetimeBegin, setDatetimeBegin] = useState("");
-    // const [datetimeEnd, setDatetimeEnd] = useState("");
+    //dialog variables
+    const [openConfirm, setOpenConfirm] = useState(false);
 
+    const [openEdit, setOpenEdit] = useState(false);
+
+    //funtion to delete a event and repopulate list
+    async function deleteEvent(){
+        if(openConfirm) {
+            await firebase.deleteItem(eventData.id);
+            getDataFromFirebase();
+            handleCloseConfirm();
+        }
+    }
+
+    //function to toggle confirm delete modal
+    function handleCloseConfirm(){
+        setOpenConfirm(openConfirm => ! openConfirm);
+    }
+    
+    //function to toggle edit event modal
+    function handleCloseEdit(){
+        setOpenEdit(openEdit => ! openEdit);
+    }
+    
+    const today = new Date().toISOString().slice(0, 10)
+    const todayTimestamp = Math.round(new Date(today).getTime()/1000)
 
 
       return (
         <div id="eventHolder">  
-            <Paper className="eventContainer" elevation={2}>
+            <Paper className={classnames(todayTimestamp > eventData.endDateTimestamp ? "eventPass" :"eventContainer")} elevation={2}>
                 <div className="infoContainer">
                     <div className="titleAndDescriptionContainer">
                         <Typography className="eventInfo" id="titleCard">
-                            Jantar na Churrascaria top
+                            {eventData.title}
                         </Typography>
                         <Typography className="eventInfo" id="description">
-                            Comer uma picanha da boa HUMMMMMMMMMM
+                            {eventData.description}
                         </Typography>
                     </div>
                     <div className="timeStampContainer">
-                        <Typography id="eventBegin" className="eventDate">
-                            <Chip icon={<AlarmOn />} color="primary" label="Começa às: 21/03/2020 10:30" variant="outlined" />
+                        <Typography component={'span'} id="eventBegin" className="eventDate">
+                            <Chip icon={<AlarmOn />} color="primary" label={"Começa às: " + eventData.beginDate + " " + eventData.beginTime} variant="outlined" /> 
                         </Typography>
-                        <Typography id="eventEnd" className="eventDate">
-                            <Chip icon={<AlarmOff />} color="secondary" label="Termina às: 21/03/2020 10:30" variant="outlined" />
+                        <Typography component={'span'} id="eventEnd" className="eventDate">
+                            <Chip icon={<AlarmOff />} color="secondary" label={"Termina às: " + eventData.endDate + " " + eventData.endTime} variant="outlined" />  
                         </Typography>
                     </div>
                 </div>
                 <div className="actionContainer">
                    <div className="eventButtons">
-                        <Tooltip className="buttonTooltip" title="Editar">
-                            <IconButton className="iconButton" color="primary" aria-label="Editar">
-                                <Create id="edit"/>
-                            </IconButton>
-                        </Tooltip>
+                            { todayTimestamp < eventData.endDateTimestamp &&
+                                <Tooltip className="buttonTooltip" title="Editar">
+                                        <IconButton onClick={() => handleCloseEdit()} className="iconButton" color="primary" aria-label="Editar">
+                                            <Create id="edit"/>
+                                        </IconButton>
+                                </Tooltip>
+                            }
                         <Tooltip className="buttonTooltip" title="Deletar">
-                            <IconButton className="iconButton" color="secundary" aria-label="Deletar">
+                            <IconButton onClick={() => handleCloseConfirm()} className="iconButton" aria-label="Deletar">
                                 <Delete id="delete" />
                             </IconButton>
                         </Tooltip>
                    </div>
+                   <div className="EventCommingContainer">
+                       {console.log(todayTimestamp + " > " + eventData.beginDateTimestamp)}
+                       {console.log(todayTimestamp > eventData.beginDateTimestamp)}
+                       {console.log(todayTimestamp + " < " + eventData.endDateTimestamp)}
+                       {console.log(todayTimestamp <  eventData.endDateTimestamp)}
+                       {todayTimestamp > eventData.beginDateTimestamp && todayTimestamp < eventData.endDateTimestamp ? <PriorityHigh /> : null} 
+                   </div>
                 </div>
             </Paper>
+                <Dialog
+                open={openConfirm}
+                onClose={() => handleCloseConfirm()}
+                aria-labelledby="Confirmar Remoção"
+                >
+                    <DialogTitle><span className="confirmTitle" >Deseja mesmo deletar esse evento?"</span></DialogTitle>
+                    <DialogActions className="confirmButtonsContainer">
+                        <Button onClick={() => handleCloseConfirm()} className="cancelButton">
+                            Cancelar
+                        </Button>
+                        <Button onClick={() => deleteEvent()} className="deleteButton" autoFocus>
+                            Deletar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                { openEdit &&
+                    <EditEvent eventData={eventData} handleCloseEdit={handleCloseEdit} getDataFromFirebase={getDataFromFirebase} open={openEdit}/>
+                }
         </div>
     )
 }

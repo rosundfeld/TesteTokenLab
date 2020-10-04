@@ -3,5 +3,11 @@
 }
 
 .newButton {
-    margin-bottom: 2rem;
+    margin: 1rem;
+}
+
+.eventList {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

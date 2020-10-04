@@ -31,6 +31,9 @@ function Nav() {
             <div id="nav">
                     <div id="navigation">
                         <div className="navContainer" >
+                            <span>
+                                <img src={require('../../assets/images/TokenLab_Logo.png')} id="logo" alt="Logo" />
+                            </span>
                             <List>
                                 <Link to="/">
                                     <ListItem button>
@@ -42,15 +45,17 @@ function Nav() {
                                 </Link>
                             </List>
                         </div>
-                        <div className="content">
-                            <Switch>
-                                <Route exact path="/">
-                                    <HomeComponent />
-                                </Route>
-                                <Route path="/perfil">
-                                    <ProfileComponent />
-                                </Route>
-                            </Switch>
+                        <div className="routerContainer">
+                            <div className="content">
+                                <Switch>
+                                    <Route exact path="/">
+                                        <HomeComponent />
+                                    </Route>
+                                    <Route path="/perfil">
+                                        <ProfileComponent />
+                                    </Route>
+                                </Switch>
+                            </div>
                         </div>
                     </div>
             </div>

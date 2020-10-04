@@ -1,5 +1,5 @@
 :root {
-    font-size: 60%;
+    font-size: 70%;
 
     --color-primary-dark: #006bc2;
     --color-primary: #589dd4;
@@ -7,6 +7,10 @@
     --color-success: #4caf50;
     --color-fail: #c51c1c;
 
+}
+
+.App {
+    overflow-x: hidden;
 }
 
 * {

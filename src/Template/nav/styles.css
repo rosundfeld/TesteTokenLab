@@ -1,10 +1,18 @@
 .navContainer {
     width: 10vw;
     background-color: #fff;
-    height: calc(100vh - 79px);
+    height: 100vh;
     z-index: 0;
     transition: width 0.3s;
     position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.routerContainer {
+    position: relative;
 }
 
 .navigation {
@@ -20,10 +28,17 @@
 }
 
 .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     transition: width 0.1s;
     width: 90vw;
     margin-left: 10vw;
-    padding: 1.5rem;
+    padding: 4rem 3rem;
+    overflow-y: auto;
+    height: 100%;
+    margin-top: 60px;
+
 }
 
 .navText span {

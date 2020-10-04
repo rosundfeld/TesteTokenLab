@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { FormControl, Input, InputLabel, Paper, Button } from '@material-ui/core';
 
 //Dialog imports
-import { Dialog, DialogActions, DialogContent, DialogTitle, Alert } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
 //Material UI input complements
 import { InputAdornment, IconButton } from '@material-ui/core';
