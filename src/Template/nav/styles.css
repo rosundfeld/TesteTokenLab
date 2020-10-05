@@ -32,8 +32,7 @@
     flex-direction: column;
     justify-content: center;
     transition: width 0.1s;
-    width: 90vw;
-    margin-left: 10vw;
+    width: 100vw;
     padding: 4rem 3rem;
     overflow-y: auto;
     height: 100%;
@@ -53,7 +52,7 @@
     color: var(--color-primary);
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
     .navContainer {
         width: 25vw;
     }
@@ -90,4 +89,4 @@
     .navIcon svg {
         margin-left: 1rem; 
     }
-}
+} */

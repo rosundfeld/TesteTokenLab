@@ -25,12 +25,15 @@ import './styles.css';
 import HomeComponent from '../../views/home';
 import ProfileComponent from '../../views/profile';
 
+//More than one class
+import classnames from 'classnames';
+
 function Nav() {
     return (
         <Router>
             <div id="nav">
                     <div id="navigation">
-                        <div className="navContainer" >
+                        {/* <div className={classnames("navContainer", "navMobile")} >
                             <span>
                                 <img src={require('../../assets/images/TokenLab_Logo.png')} id="logo" alt="Logo" />
                             </span>
@@ -44,7 +47,7 @@ function Nav() {
                                     </ListItem>
                                 </Link>
                             </List>
-                        </div>
+                        </div> */}
                         <div className="routerContainer">
                             <div className="content">
                                 <Switch>

@@ -52,11 +52,17 @@ function Calendar({ toggleNewEvent, getDataFromFirebase }) {
         let allEvents = await firebase.getEventData();
 
         let check = false;
+        let stop = false;
         allEvents.forEach(event => {
-            if( (beginDate > event.endDateTimestamp) || (beginDate < event.beginDateTimestamp && endDate < event.beginDateTimestamp) ){
-                check = true
-            }
-        })
+                if( !stop ){
+                    if( (beginDate > event.endDateTimestamp) || (beginDate < event.beginDateTimestamp && endDate < event.beginDateTimestamp) ){
+                            check = true;
+                    }else {
+                        check = false;
+                        stop = true;
+                    }
+                }
+            })
         return check;
     }
 
@@ -75,8 +81,10 @@ function Calendar({ toggleNewEvent, getDataFromFirebase }) {
 
     //Save new event
     async function saveEvent(confirm){
+        let check = await checkOtherEvent();
         if( checkDate() ){
-            if( await checkOtherEvent() || confirm){
+            console.log("aaa " + check)
+            if( check || confirm){
                 setLoader(false);
                 await firebase.saveEvent(eventTitle, eventDescription, datetimeBegin, datetimeEnd);
                 getDataFromFirebase();
@@ -96,6 +104,7 @@ function Calendar({ toggleNewEvent, getDataFromFirebase }) {
 
       return (
         <div id="calendar">  
+        
             <Paper className="actionsContainer" elevation={2}>
                 <form className="formAddEvent" noValidate autoComplete="off">
                     <TextField

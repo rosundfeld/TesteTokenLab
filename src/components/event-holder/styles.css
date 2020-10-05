@@ -91,3 +91,38 @@
 .confirmTitle {
     font-size: 1.5rem;
 }
+
+@media (max-width: 757px) {
+    .timeStampContainer {
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+    .timeStampContainer div{
+        margin-bottom: 1rem;
+    }
+    .eventContainer {
+        min-height: 27vh;
+        max-height: 27vh;  
+    }
+    .eventPass {
+        min-height: 27vh;
+        max-height: 27vh; 
+    }
+}
+
+@media (max-width: 400px) {
+    .eventDate div {
+        font-size: 1rem;
+    }
+}
+
+@media (max-height: 650px) {
+    .eventContainer {
+        min-height: 40vh;
+        max-height: 40vh;  
+    }
+    .eventPass {
+        min-height: 40vh;
+        max-height: 40vh; 
+    }
+}

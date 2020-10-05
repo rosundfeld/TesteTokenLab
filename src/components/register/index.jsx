@@ -82,16 +82,17 @@ function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegiste
                     </DialogTitle>
 
                     <DialogContent className="formContent">
+                        <div className="emailUserContainer">
+                            <FormControl>
+                                <InputLabel htmlFor="email">Email</InputLabel>
+                                <Input required value={registerEmail} onChange={ e => setRegisterEmail(e.target.value)} autoComplete="off"  id="email" aria-describedby="digite seu E-mail" />
+                            </FormControl>
 
-                        <FormControl>
-                            <InputLabel htmlFor="email">Email</InputLabel>
-                            <Input required value={registerEmail} onChange={ e => setRegisterEmail(e.target.value)} autoComplete="off"  id="email" aria-describedby="digite seu E-mail" />
-                        </FormControl>
-
-                        <FormControl>
-                            <InputLabel htmlFor="username">Nome de Usuário</InputLabel>
-                            <Input required value={registerUsername} onChange={ e => setRegisterUsername(e.target.value)} autoComplete="off" type="text" id="username" aria-describedby="digite seu nome de usuário" />
-                        </FormControl>
+                            <FormControl>
+                                <InputLabel htmlFor="username">Nome de Usuário</InputLabel>
+                                <Input required value={registerUsername} onChange={ e => setRegisterUsername(e.target.value)} autoComplete="off" type="text" id="username" aria-describedby="digite seu nome de usuário" />
+                            </FormControl>
+                        </div>
 
                         {/* Divider */}
                         <hr className="dividerSolid" />
@@ -135,7 +136,7 @@ function RegisterComponent({openRegister, handleCloseRegister, setConfirmRegiste
                                     aria-label="Aperte para mostrar a senha"
                                     onClick={ () => handleShowPasswordConfirm()}
                                   >
-                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
                                   </IconButton>
                                 </InputAdornment>
                             }

@@ -49,3 +49,14 @@
 .errorMessage {
     color: red;
 }
+
+.emailUserContainer input{
+    width: 35vh;
+}
+.emailUserContainer {
+    width: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
