@@ -53,9 +53,15 @@ function EditEvent({eventData, handleCloseEdit, open, getDataFromFirebase }) {
         let allEvents = await firebase.getEventData();
 
         let check = false;
+        let stop = false;
         allEvents.forEach(event => {
-            if( (beginDate > event.endDateTimestamp) || (beginDate < event.beginDateTimestamp && endDate < event.beginDateTimestamp) ){
-                check = true
+            if( !stop ){
+                if( (beginDate > event.endDateTimestamp) || (beginDate < event.beginDateTimestamp && endDate < event.beginDateTimestamp) ){
+                    check = true
+                }else {
+                    check = false;
+                    stop = true;
+                }
             }
         })
         return check;
@@ -91,7 +97,9 @@ function EditEvent({eventData, handleCloseEdit, open, getDataFromFirebase }) {
     }
 
     //formatted date for inputProps
-    const minDate = new Date().toISOString().split(":");
+    let yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const minDate = yesterday.toISOString().split(":");
 
       return (
         <div id="editEvent">  
