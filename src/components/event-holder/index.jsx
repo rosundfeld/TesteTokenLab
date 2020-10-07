@@ -55,7 +55,8 @@ function EventHolder({ eventData, getDataFromFirebase }) {
     
     const newTodayString = todayString[2] + "/" + todayString[1] + "/" + todayString[0]
     const todayTimestamp = Math.round(new Date(today).getTime()/1000)
-
+    
+    // console.log(today)
       return (
         <div id="eventHolder">  
             <Paper className={classnames(todayTimestamp > eventData.endDateTimestamp ? "eventPass" :"eventContainer")} elevation={2}>

@@ -83,7 +83,6 @@ function Calendar({ toggleNewEvent, getDataFromFirebase }) {
     async function saveEvent(confirm){
         let check = await checkOtherEvent();
         if( checkDate() ){
-            console.log("aaa " + check)
             if( check || confirm){
                 setLoader(false);
                 await firebase.saveEvent(eventTitle, eventDescription, datetimeBegin, datetimeEnd);

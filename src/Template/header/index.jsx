@@ -34,10 +34,10 @@ function Header( props ) {
         window.location.reload(false);
       }
 
-    function redirectToProfile(){
-        window.location.href = 'http://localhost:3000/perfil';
-        handleClose();
-    }
+    // function redirectToProfile(){
+    //     window.location.href = 'http://localhost:3000/perfil';
+    //     handleClose();
+    // }
 
       return (
         <div id="header">  
@@ -54,7 +54,7 @@ function Header( props ) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                     >
-                            <MenuItem onClick={() => redirectToProfile()}> Profile</MenuItem>
+                            {/* <MenuItem onClick={() => redirectToProfile()}> Profile</MenuItem> */}
                         <MenuItem onClick={() =>  logout()}>Logout</MenuItem>
                     </Menu>
                 </div>

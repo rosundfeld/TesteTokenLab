@@ -131,7 +131,6 @@ const config = {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log(output)
             const outputJSON = await output.json();
             console.log('Success');
             return(outputJSON);

@@ -116,7 +116,7 @@ function LoginComponent( props ) {
                                         </Button>
                                     </div>
                             </div>
-                                <span className="forgot"> Esqueci minha senha </span>
+                                {/* <span className="forgot"> Esqueci minha senha </span> */}
                         </Paper>
                 </div>
                 { wallpaperNumber !== null ?
